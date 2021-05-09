@@ -1,32 +1,42 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+ 
+    <nav-menu></nav-menu>
+    <keep-alive exclude="cart,u_order">
+      <router-view />
+    </keep-alive>
+    <!-- <transition name="el-fade-in"> -->
+      <div v-if="this.$store.state.OrderMessage" class="transition-box">
+        <settle class="settle1"></settle>
+      </div>
+    <!-- </transition> -->
   </div>
 </template>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  <script>
+import navMenu from "./components/navMenu/navMenu.vue";
+import Settle from "components/settle/settle.vue";
+export default {
+  components: { navMenu, Settle },
+  // created(){
+  //   console.log(this.$store.state.name1="1");
+  //   console.log(this.$store.state.name1)
+  // }
+};
+</script>
+<style scoped>
+#app{
+ 
 }
-
-#nav {
-  padding: 30px;
+* {
+  margin: 0;
+  padding: 0;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.settle1 {
+  width: 100%;
+  height: 100%;
+position: fixed;
+top: 0;
+z-index: 999;
+background-color: rgba(197, 197, 197, 0.267);
 }
 </style>
